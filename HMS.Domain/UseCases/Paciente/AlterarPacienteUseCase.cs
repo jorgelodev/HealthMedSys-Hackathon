@@ -4,16 +4,15 @@ using HMS.Domain.Specifications;
 
 namespace HMS.Domain.UseCases.Pacientes
 {
-    public class CadastrarPacienteUseCase : BaseUseCase<Paciente>
+    public class AlterarPacienteUseCase : BaseUseCase<Paciente>
     {
         private readonly Paciente _paciente;
-        private readonly IPacienteGateway _pacienteGateway;        
+        private readonly IPacienteGateway _pacienteGateway;
 
-        public CadastrarPacienteUseCase(Paciente paciente, IPacienteGateway pacienteGateway) : base(paciente)
+        public AlterarPacienteUseCase(Paciente paciente, IPacienteGateway pacienteGateway) : base(paciente)
         {
             _paciente = paciente;
             _pacienteGateway = pacienteGateway;
-            
 
             _specifications = new List<ISpecification<Paciente>>
             {
@@ -21,7 +20,7 @@ namespace HMS.Domain.UseCases.Pacientes
             };
         }
 
-        public Paciente Cadastrar()
+        public Paciente Alterar()
         {
             ValidaEspecificacoes();
 

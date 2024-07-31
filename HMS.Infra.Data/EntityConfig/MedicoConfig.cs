@@ -10,10 +10,11 @@ namespace HMS.Infra.Data.EntityConfig
         {
             builder
             .ToTable("Medicos")
+            .HasBaseType<Pessoa>()
             .HasOne(m => m.Usuario)
             .WithMany()
-            .HasForeignKey(m => m.UsuarioId);
-
+            .HasForeignKey(m => m.UsuarioId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

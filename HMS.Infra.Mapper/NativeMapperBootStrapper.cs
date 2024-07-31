@@ -19,6 +19,7 @@ namespace HMS.Infra.Mapper
             CreateMap<Paciente, PacienteDto>().ReverseMap();
             CreateMap<Paciente, AlteraPacienteDto>().ReverseMap();
             CreateMap<Paciente, CadastraPacienteDto>().ReverseMap();
+            CreateMap<Usuario, CadastraPacienteDto>().ReverseMap();
 
 
 

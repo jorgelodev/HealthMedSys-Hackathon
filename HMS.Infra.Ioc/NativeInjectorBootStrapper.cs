@@ -12,17 +12,18 @@ namespace HMS.Infra.IoC
     public class NativeInjectorBootStrapper
     {
         public static void RegisterServices(IServiceCollection services)
-        {  
+        {
 
             #region Infrastructure            
 
             // Services
             services.AddScoped<IPacienteService, PacienteService>();
-            
+
 
 
             // Gateways
             services.AddScoped<IPacienteGateway, PacienteGateway>();
+            services.AddScoped<IUsuarioGateway, UsuarioGateway>();
 
 
             #endregion
@@ -31,7 +32,8 @@ namespace HMS.Infra.IoC
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
             services.AddScoped<IPacienteRepository, PacienteRepository>();
-         
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
 
             services.AddScoped<ApplicationDbContext>();
             #endregion
