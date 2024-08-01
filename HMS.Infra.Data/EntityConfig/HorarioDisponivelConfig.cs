@@ -17,6 +17,12 @@ namespace HMS.Infra.Data.EntityConfig
             .WithMany()
             .HasForeignKey(h => h.MedicoId)
             .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+            .HasOne(h => h.Consulta)
+            .WithOne(c => c.HorarioDisponivel)
+            .HasForeignKey<Consulta>(c => c.HorarioDisponivelId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

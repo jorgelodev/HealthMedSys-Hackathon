@@ -30,10 +30,7 @@ namespace HMS.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DataHora")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MedicoId")
+                    b.Property<int>("HorarioDisponivelId")
                         .HasColumnType("int");
 
                     b.Property<int>("PacienteId")
@@ -41,11 +38,43 @@ namespace HMS.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MedicoId");
+                    b.HasIndex("HorarioDisponivelId")
+                        .IsUnique();
 
                     b.HasIndex("PacienteId");
 
                     b.ToTable("Consultas", (string)null);
+                });
+
+            modelBuilder.Entity("HMS.Domain.Entities.EmailConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("SmtpPort")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SmtpServer")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailConfigurations", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Domain.Entities.HorarioDisponivel", b =>
@@ -117,6 +146,7 @@ namespace HMS.Infra.Data.Migrations
                     b.HasBaseType("HMS.Domain.Entities.Pessoa");
 
                     b.Property<string>("NumeroCRM")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UsuarioId")
@@ -141,9 +171,9 @@ namespace HMS.Infra.Data.Migrations
 
             modelBuilder.Entity("HMS.Domain.Entities.Consulta", b =>
                 {
-                    b.HasOne("HMS.Domain.Entities.Medico", "Medico")
-                        .WithMany()
-                        .HasForeignKey("MedicoId")
+                    b.HasOne("HMS.Domain.Entities.HorarioDisponivel", "HorarioDisponivel")
+                        .WithOne("Consulta")
+                        .HasForeignKey("HMS.Domain.Entities.Consulta", "HorarioDisponivelId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -153,7 +183,7 @@ namespace HMS.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Medico");
+                    b.Navigation("HorarioDisponivel");
 
                     b.Navigation("Paciente");
                 });
@@ -161,9 +191,9 @@ namespace HMS.Infra.Data.Migrations
             modelBuilder.Entity("HMS.Domain.Entities.HorarioDisponivel", b =>
                 {
                     b.HasOne("HMS.Domain.Entities.Medico", "Medico")
-                        .WithMany()
+                        .WithMany("HorariosDisponiveis")
                         .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Medico");
@@ -201,6 +231,16 @@ namespace HMS.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("HMS.Domain.Entities.HorarioDisponivel", b =>
+                {
+                    b.Navigation("Consulta");
+                });
+
+            modelBuilder.Entity("HMS.Domain.Entities.Medico", b =>
+                {
+                    b.Navigation("HorariosDisponiveis");
                 });
 #pragma warning restore 612, 618
         }

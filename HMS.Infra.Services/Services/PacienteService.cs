@@ -4,7 +4,7 @@ using HMS.Domain.Excepctions;
 using HMS.Domain.Interfaces.Gateways;
 using HMS.Domain.UseCases.Pacientes;
 using HMS.Domain.UseCases.Usuarios;
-using HMS.Infra.Services.DTOs.Paciente;
+using HMS.Infra.Services.DTOs.Pacientes;
 using HMS.Infra.Services.Interfaces;
 
 namespace HMS.Infra.Services.Services
@@ -29,9 +29,9 @@ namespace HMS.Infra.Services.Services
 
             paciente.Nome = alteraPacienteDto.Nome;
 
-            var alterarLivroUseCase = new AlterarPacienteUseCase(paciente, _pacienteGateway);
+            var alterarPacienteUseCase = new AlterarPacienteUseCase(paciente, _pacienteGateway);
 
-            alterarLivroUseCase.Alterar();
+            alterarPacienteUseCase.Alterar();
 
             return _mapper.Map<AlteraPacienteDto>(_pacienteGateway.Alterar(paciente));
         }
@@ -47,15 +47,20 @@ namespace HMS.Infra.Services.Services
             
             usuario = _usuarioGateway.Cadastrar(usuario);
 
-            paciente.Usuario = usuario;
-            //paciente.Id = usuario.Id;
+            paciente.Usuario = usuario;            
             paciente.UsuarioId = usuario.Id;
 
             var cadastrarPacienteUseCase = new CadastrarPacienteUseCase(paciente, _pacienteGateway);            
 
             paciente = cadastrarPacienteUseCase.Cadastrar();
 
-            return _mapper.Map<PacienteDto>(_pacienteGateway.Cadastrar(paciente));
+            paciente = _pacienteGateway.Cadastrar(paciente);
+
+            var pacienteCadastradoDto = _mapper.Map<PacienteDto>(paciente);
+            
+            pacienteCadastradoDto.Email = paciente.Usuario.Email;
+
+            return pacienteCadastradoDto;
         }
 
         public PacienteDto Deletar(int id)

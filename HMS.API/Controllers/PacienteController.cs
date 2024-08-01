@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HMS.Infra.Services.DTOs.Paciente;
+using HMS.Infra.Services.DTOs.Pacientes;
 using HMS.Infra.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

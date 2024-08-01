@@ -1,4 +1,4 @@
-﻿namespace HMS.Infra.Services.DTOs.Paciente
+﻿namespace HMS.Infra.Services.DTOs.Pacientes
 {
     public class PacienteViewModel
     {

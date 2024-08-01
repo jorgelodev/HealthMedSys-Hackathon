@@ -1,4 +1,4 @@
-﻿using HMS.Infra.Services.DTOs.Paciente;
+﻿using HMS.Infra.Services.DTOs.Pacientes;
 
 namespace HMS.Infra.Services.Interfaces
 {

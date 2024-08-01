@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using HMS.Domain.Entities;
-using HMS.Infra.Services.DTOs.Paciente;
+using HMS.Infra.Services.DTOs.Consultas;
+using HMS.Infra.Services.DTOs.HorarioDisponiveis;
+using HMS.Infra.Services.DTOs.Medicos;
+using HMS.Infra.Services.DTOs.Pacientes;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HMS.Infra.Mapper
@@ -10,23 +13,52 @@ namespace HMS.Infra.Mapper
         public NativeMapperBootStrapper()
         {
             // ViewModels x DTOs
+
+            // Paciente //
             CreateMap<PacienteViewModel, PacienteDto>().ReverseMap();
             CreateMap<AlteraPacienteViewModel, AlteraPacienteDto>().ReverseMap();
-            CreateMap<CadastraPacienteViewModel, CadastraPacienteDto>().ReverseMap();
-           
+            CreateMap<CadastraPacienteViewModel, CadastraPacienteDto>().ReverseMap();            
+
+            // Medico //
+            CreateMap<MedicoViewModel, MedicoDto>().ReverseMap();
+            CreateMap<AlteraMedicoViewModel, AlteraMedicoDto>().ReverseMap();
+            CreateMap<CadastraMedicoViewModel, CadastraMedicoDto>().ReverseMap();
+
+            // HorarioDisponivel //
+            CreateMap<HorarioDisponivelViewModel, HorarioDisponivelDto>().ReverseMap();
+            CreateMap<AlteraHorarioDisponivelViewModel, AlteraHorarioDisponivelDto>().ReverseMap();
+            CreateMap<CadastraHorarioDisponivelViewModel, CadastraHorarioDisponivelDto>().ReverseMap();
+
+            // Consulta //
+
+            CreateMap<AgendaConsultaViewModel, AgendaConsultaDto>().ReverseMap();
+
 
             // Entities x DTOs 
+
+            // Paciente //
             CreateMap<Paciente, PacienteDto>().ReverseMap();
             CreateMap<Paciente, AlteraPacienteDto>().ReverseMap();
             CreateMap<Paciente, CadastraPacienteDto>().ReverseMap();
             CreateMap<Usuario, CadastraPacienteDto>().ReverseMap();
 
+            // Medico //
+            CreateMap<Medico, MedicoDto>().ReverseMap();
+            CreateMap<Medico, AlteraMedicoDto>().ReverseMap();
+            CreateMap<Medico, CadastraMedicoDto>().ReverseMap();            
+            CreateMap<Usuario, CadastraMedicoDto>().ReverseMap();            
+            CreateMap<Medico, MedicosDisponiveisDto>().ReverseMap();
 
+            // HorarioDisponivel //
+            CreateMap<HorarioDisponivel, HorarioDisponivelDto>().ReverseMap();
+            CreateMap<HorarioDisponivel, AlteraHorarioDisponivelDto>().ReverseMap();
+            CreateMap<HorarioDisponivel, CadastraHorarioDisponivelDto>().ReverseMap();
+            CreateMap<HorarioDisponivel, HorarioDisponivelListaMedicoDto>().ReverseMap();
 
+            // Consulta //
+            CreateMap<Consulta, ConsultaDto>().ReverseMap();
+            CreateMap<Consulta, AgendaConsultaDto>().ReverseMap();
 
-            //CreateMap<Usuario, UsuarioDto>().ReverseMap();
-            //CreateMap<Usuario, AlteraUsuarioDto>().ReverseMap();
-            //CreateMap<Usuario, CadastraUsuarioDto>().ReverseMap();
 
         }
 

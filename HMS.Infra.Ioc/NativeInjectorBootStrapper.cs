@@ -18,12 +18,20 @@ namespace HMS.Infra.IoC
 
             // Services
             services.AddScoped<IPacienteService, PacienteService>();
+            services.AddScoped<IMedicoService, MedicoService>();
+            services.AddScoped<IHorarioDisponivelService, HorarioDisponivelService>();
+            services.AddScoped<IConsultaService, ConsultaService>();
+            services.AddScoped<IEmailService, EmailService>();
 
 
 
             // Gateways
             services.AddScoped<IPacienteGateway, PacienteGateway>();
             services.AddScoped<IUsuarioGateway, UsuarioGateway>();
+            services.AddScoped<IMedicoGateway, MedicoGateway>();
+            services.AddScoped<IHorarioDisponivelGateway, HorarioDisponivelGateway>();
+            services.AddScoped<IConsultaGateway, ConsultaGateway>();
+            services.AddScoped<IEmailConfigGateway, EmailConfigGateway>();
 
 
             #endregion
@@ -33,6 +41,10 @@ namespace HMS.Infra.IoC
 
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IMedicoRepository, MedicoRepository>();
+            services.AddScoped<IHorarioDisponivelRepository, HorarioDisponivelRepository>();
+            services.AddScoped<IConsultaRepository, ConsultaRepository>();
+            services.AddScoped<IEmailConfigRepository, EmailConfigRepository>();
 
 
             services.AddScoped<ApplicationDbContext>();

@@ -18,6 +18,7 @@ namespace HMS.Infra.Data.Context
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Consulta> Consultas { get; set; }
         public DbSet<HorarioDisponivel> HorariosDisponiveis { get; set; }
+        public DbSet<EmailConfig> EmailConfigs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
