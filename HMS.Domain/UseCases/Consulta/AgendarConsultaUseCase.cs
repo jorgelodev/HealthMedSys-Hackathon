@@ -1,10 +1,11 @@
 ﻿using HMS.Domain.Entities;
 using HMS.Domain.Interfaces.Gateways;
-using HMS.Domain.Specifications;
+using HMS.Domain.Interfaces.Specifications;
+using HMS.Domain.Specifications.Consultas;
 
 namespace HMS.Domain.UseCases.Consultas
 {
-    
+
     public class AgendarConsultaUseCase : BaseUseCase<Consulta>
     {
         private readonly Consulta _consulta;
@@ -18,15 +19,15 @@ namespace HMS.Domain.UseCases.Consultas
 
             _specifications = new List<ISpecification<Consulta>>
             {
-                //new LivroDoadorExisteSpec(_pacienteGateway)
+                new ConsultaHorarioDisponivelIdObrigatorio(),
+                new ConsultaPacienteIdObrigatorio()
             };
         }
 
         public Consulta Agendar()
         {
             ValidaEspecificacoes();
-
-            //_paciente.Disponivel = true;
+            
 
             return _consulta;
         }

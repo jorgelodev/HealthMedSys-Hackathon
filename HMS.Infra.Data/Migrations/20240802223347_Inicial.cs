@@ -6,11 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HMS.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class PrimeiraMigration : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "EmailConfigurations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SmtpServer = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    SmtpPort = table.Column<int>(type: "int", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailConfigurations", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Pessoas",
                 columns: table => new
@@ -45,7 +61,7 @@ namespace HMS.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    NumeroCRM = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    NumeroCRM = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,7 +122,7 @@ namespace HMS.Infra.Data.Migrations
                         column: x => x.MedicoId,
                         principalTable: "Medicos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,17 +131,16 @@ namespace HMS.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MedicoId = table.Column<int>(type: "int", nullable: false),
                     PacienteId = table.Column<int>(type: "int", nullable: false),
-                    DataHora = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    HorarioDisponivelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Consultas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Consultas_Medicos_MedicoId",
-                        column: x => x.MedicoId,
-                        principalTable: "Medicos",
+                        name: "FK_Consultas_HorariosDisponiveis_HorarioDisponivelId",
+                        column: x => x.HorarioDisponivelId,
+                        principalTable: "HorariosDisponiveis",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -137,9 +152,10 @@ namespace HMS.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Consultas_MedicoId",
+                name: "IX_Consultas_HorarioDisponivelId",
                 table: "Consultas",
-                column: "MedicoId");
+                column: "HorarioDisponivelId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Consultas_PacienteId",
@@ -167,6 +183,9 @@ namespace HMS.Infra.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Consultas");
+
+            migrationBuilder.DropTable(
+                name: "EmailConfigurations");
 
             migrationBuilder.DropTable(
                 name: "HorariosDisponiveis");

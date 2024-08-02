@@ -38,29 +38,7 @@ namespace HMS.API.Controllers
 
             return Ok(medicoCadastrado);
 
-        }
-
-        /// <summary>
-        /// Alteração de médicos.
-        /// </summary>
-        /// <param name="alteraMedicoViewModel">ViewModel para alterar médico.</param>        
-        /// <remarks>
-        /// 
-        /// Informe o nome e id do médico para realizar a alteração. 
-        /// 
-        /// </remarks>
-        /// <response code="200">Alteração Realizada com sucesso</response>
-        /// <response code="400">Alteração não realizada, é retornado mensagem com o(s) motivo(s).</response>
-        [HttpPut]
-        public IActionResult Alterar(AlteraMedicoViewModel alteraMedicoViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var alteraMedicoDto = _medicoService.Alterar(_mapper.Map<AlteraMedicoDto>(alteraMedicoViewModel));
-
-            return Ok(alteraMedicoDto);
-
-        }
+        }        
 
         /// <summary>
         /// Busca por médicos disponíveis.

@@ -1,6 +1,7 @@
 ﻿using HMS.Domain.Entities;
 using HMS.Domain.Interfaces.Gateways;
-using HMS.Domain.Specifications;
+using HMS.Domain.Interfaces.Specifications;
+using HMS.Domain.Specifications.Usuarios;
 
 namespace HMS.Domain.UseCases.Usuarios
 {
@@ -17,15 +18,15 @@ namespace HMS.Domain.UseCases.Usuarios
 
             _specifications = new List<ISpecification<Usuario>>
             {
-                //new LivroDoadorExisteSpec(_pacienteGateway)
+                new UsuarioEmailUnicoSpec(_usuarioGateway),
+                new UsuarioSenhaObrigatorioSpec(),
+                new UsuarioEmailValidoSpec()
             };
         }
 
         public Usuario Cadastrar()
         {
-            ValidaEspecificacoes();
-
-            //_paciente.Disponivel = true;
+            ValidaEspecificacoes();            
 
             return _usuario;
         }

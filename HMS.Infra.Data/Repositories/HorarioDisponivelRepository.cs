@@ -9,5 +9,7 @@ namespace HMS.Infra.Data.Repositories
         public HorarioDisponivelRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using HMS.Domain.Entities;
 using HMS.Domain.Interfaces.Gateways;
-using HMS.Domain.Specifications;
+using HMS.Domain.Interfaces.Specifications;
+using HMS.Domain.Specifications.Medicos;
 
 namespace HMS.Domain.UseCases.Medicos
 {
@@ -17,15 +18,14 @@ namespace HMS.Domain.UseCases.Medicos
 
             _specifications = new List<ISpecification<Medico>>
             {
-                //new LivroDoadorExisteSpec(_pacienteGateway)
+                new MedicoNumeroCRMObrigatorioSpec(),
+                new MedicoNumeroCRMValidoSpec()
             };
         }
 
         public Medico Cadastrar()
         {
-            ValidaEspecificacoes();
-
-            //_paciente.Disponivel = true;
+            ValidaEspecificacoes();            
 
             return _medico;
         }

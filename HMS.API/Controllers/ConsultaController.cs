@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using HMS.Infra.Services.DTOs.Consultas;
 using HMS.Infra.Services.DTOs.HorarioDisponiveis;
-using HMS.Infra.Services.DTOs.Pacientes;
 using HMS.Infra.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

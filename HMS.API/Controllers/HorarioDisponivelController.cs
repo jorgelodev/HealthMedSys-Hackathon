@@ -25,7 +25,7 @@ namespace HMS.API.Controllers
         /// <param name="horarioDisponivelViewModel">ViewModel para cadastro de Horário Disponível.</param>        
         /// <remarks>
         /// 
-        /// O médico poderá cadastrar horários disponíveis preenchendo os campos: DataHoraInicio e DataHoraFim.
+        /// O médico poderá cadastrar horários disponíveis preenchendo os campos: MedicoId, DataHoraInicio e DataHoraFim.
         /// 
         /// </remarks>
         /// <response code="200">Cadastro Realizado com sucesso</response>
@@ -36,7 +36,7 @@ namespace HMS.API.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var horarioDisponivelCadastrado = _horarioDisponivelService.Cadastrar(_mapper.Map<CadastraHorarioDisponivelDto>(horarioDisponivelViewModel));
-
+            
             return Ok(horarioDisponivelCadastrado);
 
         }

@@ -40,26 +40,6 @@ namespace HMS.API.Controllers
 
         }
 
-        /// <summary>
-        /// Alteração de pacientes.
-        /// </summary>
-        /// <param name="alteraPacienteViewModel">ViewModel para alterar paciente.</param>        
-        /// <remarks>
-        /// 
-        /// Informe o nome e id do paciente para realizar a alteração. 
-        /// 
-        /// </remarks>
-        /// <response code="200">Alteração Realizada com sucesso</response>
-        /// <response code="400">Alteração não realizada, é retornado mensagem com o(s) motivo(s).</response>
-        [HttpPut]
-        public IActionResult Alterar(AlteraPacienteViewModel alteraPacienteViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var alteraLivroDto = _pacienteService.Alterar(_mapper.Map<AlteraPacienteDto>(alteraPacienteViewModel));
-
-            return Ok(alteraLivroDto);
-
-        }
+       
     }
 }

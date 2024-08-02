@@ -22,20 +22,6 @@ namespace HMS.Infra.Services.Services
             _usuarioGateway = usuarioGateway;
         }
 
-        public AlteraPacienteDto Alterar(AlteraPacienteDto alteraPacienteDto)
-        {
-            var paciente = _pacienteGateway.ObterPorId(alteraPacienteDto.Id) ??
-                throw new DomainValidationException("Paciente não encontrado");
-
-            paciente.Nome = alteraPacienteDto.Nome;
-
-            var alterarPacienteUseCase = new AlterarPacienteUseCase(paciente, _pacienteGateway);
-
-            alterarPacienteUseCase.Alterar();
-
-            return _mapper.Map<AlteraPacienteDto>(_pacienteGateway.Alterar(paciente));
-        }
-
         public PacienteDto Cadastrar(CadastraPacienteDto pacienteDto)
         {
             var paciente = _mapper.Map<Paciente>(pacienteDto);
@@ -44,15 +30,15 @@ namespace HMS.Infra.Services.Services
             var cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase(usuario, _usuarioGateway);
 
             usuario = cadastrarUsuarioUseCase.Cadastrar();
-            
+
+            var cadastrarPacienteUseCase = new CadastrarPacienteUseCase(paciente, _pacienteGateway);
+
+            paciente = cadastrarPacienteUseCase.Cadastrar();
+
             usuario = _usuarioGateway.Cadastrar(usuario);
 
             paciente.Usuario = usuario;            
-            paciente.UsuarioId = usuario.Id;
-
-            var cadastrarPacienteUseCase = new CadastrarPacienteUseCase(paciente, _pacienteGateway);            
-
-            paciente = cadastrarPacienteUseCase.Cadastrar();
+            paciente.UsuarioId = usuario.Id;            
 
             paciente = _pacienteGateway.Cadastrar(paciente);
 
@@ -61,11 +47,6 @@ namespace HMS.Infra.Services.Services
             pacienteCadastradoDto.Email = paciente.Usuario.Email;
 
             return pacienteCadastradoDto;
-        }
-
-        public PacienteDto Deletar(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public PacienteDto ObterPorId(int id)

@@ -4,9 +4,8 @@ namespace HMS.Infra.Services.Interfaces
 {
     public interface IPacienteService
     {
-        PacienteDto Cadastrar(CadastraPacienteDto pacienteDto);
-        AlteraPacienteDto Alterar(AlteraPacienteDto alteraPacienteDto);        
+        PacienteDto Cadastrar(CadastraPacienteDto pacienteDto);             
         PacienteDto ObterPorId(int id);
-        PacienteDto Deletar(int id);        
+          
     }
 }

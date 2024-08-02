@@ -4,5 +4,6 @@ namespace HMS.Domain.Interfaces.Repositories
 {
     public interface IHorarioDisponivelRepository : IRepositoryBase<HorarioDisponivel>
     {
+      
     }
 }

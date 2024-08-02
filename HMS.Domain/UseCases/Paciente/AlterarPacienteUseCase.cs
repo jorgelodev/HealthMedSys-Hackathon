@@ -1,6 +1,6 @@
 ﻿using HMS.Domain.Entities;
 using HMS.Domain.Interfaces.Gateways;
-using HMS.Domain.Specifications;
+using HMS.Domain.Interfaces.Specifications;
 
 namespace HMS.Domain.UseCases.Pacientes
 {

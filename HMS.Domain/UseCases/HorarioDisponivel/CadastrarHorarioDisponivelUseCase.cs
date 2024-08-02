@@ -1,6 +1,7 @@
 ﻿using HMS.Domain.Entities;
 using HMS.Domain.Interfaces.Gateways;
-using HMS.Domain.Specifications;
+using HMS.Domain.Interfaces.Specifications;
+using HMS.Domain.Specifications.HorarioDisponivels;
 
 namespace HMS.Domain.UseCases.HorarioDisponiveis
 {
@@ -17,15 +18,17 @@ namespace HMS.Domain.UseCases.HorarioDisponiveis
 
             _specifications = new List<ISpecification<HorarioDisponivel>>
             {
-                //new LivroDoadorExisteSpec(_pacienteGateway)
+                new HorarioDisponivelMedicoIdObrigatorioSpec(),
+                new HorarioDisponivelDataInicioValidaSpec(),
+                new HorarioDisponivelDataFimValidaSpec(),
+                new HorarioDisponivelDatasValidaSpec(),
+                new HorarioDisponiveDesocupadoSpec(_horarioDisponivelGateway)
             };
         }
 
         public HorarioDisponivel Cadastrar()
         {
-            ValidaEspecificacoes();
-
-            //_paciente.Disponivel = true;
+            ValidaEspecificacoes();            
 
             return _horarioDisponivel;
         }

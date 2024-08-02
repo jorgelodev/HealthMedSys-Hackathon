@@ -11,12 +11,14 @@ namespace HMS.Infra.Services.Services
     public class HorarioDisponivelService : IHorarioDisponivelService
     {         
         private readonly IHorarioDisponivelGateway _horarioDisponivelGateway;        
+        private readonly IMedicoGateway _medicolGateway;        
         private readonly IMapper _mapper;
 
-        public HorarioDisponivelService(IMapper mapper, IHorarioDisponivelGateway horarioDisponivelGateway)
-        {            
+        public HorarioDisponivelService(IMapper mapper, IHorarioDisponivelGateway horarioDisponivelGateway, IMedicoGateway medicolGateway)
+        {
             _mapper = mapper;
             _horarioDisponivelGateway = horarioDisponivelGateway;
+            _medicolGateway = medicolGateway;
         }
 
         public HorarioDisponivelDto Alterar(AlteraHorarioDisponivelDto alteraHorarioDisponivelDto)
@@ -37,14 +39,17 @@ namespace HMS.Infra.Services.Services
 
         public HorarioDisponivelDto Cadastrar(CadastraHorarioDisponivelDto cadastraHorarioDisponivelDto)
         {
-            var horarioDisponivel = _mapper.Map<HorarioDisponivel>(cadastraHorarioDisponivelDto);            
-           
+            var horarioDisponivel = _mapper.Map<HorarioDisponivel>(cadastraHorarioDisponivelDto);
+
+            horarioDisponivel.Medico = _medicolGateway.ObterPorId(horarioDisponivel.MedicoId) ?? 
+                throw new DomainValidationException("Médico não encontrado");
 
             var cadastrarMedicoUseCase = new CadastrarHorarioDisponivelUseCase(horarioDisponivel, _horarioDisponivelGateway);            
 
             horarioDisponivel = cadastrarMedicoUseCase.Cadastrar();
 
-            horarioDisponivel = _horarioDisponivelGateway.Cadastrar(horarioDisponivel);            
+            horarioDisponivel = _horarioDisponivelGateway.Cadastrar(horarioDisponivel); 
+            
 
             return _mapper.Map<HorarioDisponivelDto>(horarioDisponivel);
         }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HMS.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240801012830_HorariosDisponiveis")]
-    partial class HorariosDisponiveis
+    [Migration("20240802223347_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,9 +36,6 @@ namespace HMS.Infra.Data.Migrations
                     b.Property<int>("HorarioDisponivelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MedicoId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PacienteId")
                         .HasColumnType("int");
 
@@ -47,11 +44,40 @@ namespace HMS.Infra.Data.Migrations
                     b.HasIndex("HorarioDisponivelId")
                         .IsUnique();
 
-                    b.HasIndex("MedicoId");
-
                     b.HasIndex("PacienteId");
 
                     b.ToTable("Consultas", (string)null);
+                });
+
+            modelBuilder.Entity("HMS.Domain.Entities.EmailConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("SmtpPort")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SmtpServer")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailConfigurations", (string)null);
                 });
 
             modelBuilder.Entity("HMS.Domain.Entities.HorarioDisponivel", b =>
@@ -151,12 +177,6 @@ namespace HMS.Infra.Data.Migrations
                     b.HasOne("HMS.Domain.Entities.HorarioDisponivel", "HorarioDisponivel")
                         .WithOne("Consulta")
                         .HasForeignKey("HMS.Domain.Entities.Consulta", "HorarioDisponivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HMS.Domain.Entities.Medico", "Medico")
-                        .WithMany()
-                        .HasForeignKey("MedicoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -167,8 +187,6 @@ namespace HMS.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("HorarioDisponivel");
-
-                    b.Navigation("Medico");
 
                     b.Navigation("Paciente");
                 });

@@ -13,19 +13,9 @@ namespace HMS.Infra.Gateways.Gateways
             _medicoRepository = medicoRepository;
         }
 
-        public Medico Alterar(Medico medico)
-        {
-            return _medicoRepository.Alterar(medico);
-        }
-
         public Medico Cadastrar(Medico medico)
         {
             return _medicoRepository.Cadastrar(medico);
-        }
-
-        public Medico Deletar(int id)
-        {
-            return _medicoRepository.Deletar(id);
         }
 
         public ICollection<Medico> Disponiveis()

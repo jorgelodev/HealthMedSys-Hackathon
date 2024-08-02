@@ -12,20 +12,9 @@ namespace HMS.Infra.Gateways.Gateways
         {
             _pacienteRepository = pacienteRepository;
         }
-
-        public Paciente Alterar(Paciente paciente)
-        {
-            return _pacienteRepository.Alterar(paciente);
-        }
-
         public Paciente Cadastrar(Paciente paciente)
         {
             return _pacienteRepository.Cadastrar(paciente);
-        }
-
-        public Paciente Deletar(int id)
-        {
-            return _pacienteRepository.Deletar(id);
         }
 
         public Paciente ObterPorId(int id)

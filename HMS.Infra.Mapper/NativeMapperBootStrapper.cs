@@ -15,13 +15,11 @@ namespace HMS.Infra.Mapper
             // ViewModels x DTOs
 
             // Paciente //
-            CreateMap<PacienteViewModel, PacienteDto>().ReverseMap();
-            CreateMap<AlteraPacienteViewModel, AlteraPacienteDto>().ReverseMap();
+            CreateMap<PacienteViewModel, PacienteDto>().ReverseMap(); 
             CreateMap<CadastraPacienteViewModel, CadastraPacienteDto>().ReverseMap();            
 
             // Medico //
             CreateMap<MedicoViewModel, MedicoDto>().ReverseMap();
-            CreateMap<AlteraMedicoViewModel, AlteraMedicoDto>().ReverseMap();
             CreateMap<CadastraMedicoViewModel, CadastraMedicoDto>().ReverseMap();
 
             // HorarioDisponivel //
@@ -38,13 +36,11 @@ namespace HMS.Infra.Mapper
 
             // Paciente //
             CreateMap<Paciente, PacienteDto>().ReverseMap();
-            CreateMap<Paciente, AlteraPacienteDto>().ReverseMap();
             CreateMap<Paciente, CadastraPacienteDto>().ReverseMap();
             CreateMap<Usuario, CadastraPacienteDto>().ReverseMap();
 
             // Medico //
             CreateMap<Medico, MedicoDto>().ReverseMap();
-            CreateMap<Medico, AlteraMedicoDto>().ReverseMap();
             CreateMap<Medico, CadastraMedicoDto>().ReverseMap();            
             CreateMap<Usuario, CadastraMedicoDto>().ReverseMap();            
             CreateMap<Medico, MedicosDisponiveisDto>().ReverseMap();

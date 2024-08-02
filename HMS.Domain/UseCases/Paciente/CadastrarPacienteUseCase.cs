@@ -1,6 +1,6 @@
 ﻿using HMS.Domain.Entities;
 using HMS.Domain.Interfaces.Gateways;
-using HMS.Domain.Specifications;
+using HMS.Domain.Interfaces.Specifications;
 
 namespace HMS.Domain.UseCases.Pacientes
 {
@@ -16,16 +16,13 @@ namespace HMS.Domain.UseCases.Pacientes
             
 
             _specifications = new List<ISpecification<Paciente>>
-            {
-                //new LivroDoadorExisteSpec(_pacienteGateway)
+            {                
             };
         }
 
         public Paciente Cadastrar()
         {
-            ValidaEspecificacoes();
-
-            //_paciente.Disponivel = true;
+            ValidaEspecificacoes();            
 
             return _paciente;
         }

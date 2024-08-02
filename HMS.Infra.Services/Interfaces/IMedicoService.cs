@@ -4,10 +4,9 @@ namespace HMS.Infra.Services.Interfaces
 {
     public interface IMedicoService
     {
-        MedicoDto Cadastrar(CadastraMedicoDto medicoDto);
-        AlteraMedicoDto Alterar(AlteraMedicoDto alteraMedicoDto);
+        MedicoDto Cadastrar(CadastraMedicoDto medicoDto);        
         ICollection<MedicosDisponiveisDto> Disponiveis();
         MedicoDto ObterPorId(int id);
-        MedicoDto Deletar(int id);        
+           
     }
 }

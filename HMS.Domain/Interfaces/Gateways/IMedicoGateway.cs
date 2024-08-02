@@ -3,13 +3,9 @@
 namespace HMS.Domain.Interfaces.Gateways
 {
     public interface IMedicoGateway
-    {
-        Medico Alterar(Medico paciente);
-        Medico Cadastrar(Medico paciente);
-        Medico Deletar(int id);
+    {     
+        Medico Cadastrar(Medico paciente);    
         Medico ObterPorId(int id);
-
         ICollection<Medico> Disponiveis();
-
     }
 }

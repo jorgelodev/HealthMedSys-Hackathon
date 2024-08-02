@@ -1,5 +1,5 @@
 ﻿using HMS.Domain.Excepctions;
-using HMS.Domain.Specifications;
+using HMS.Domain.Interfaces.Specifications;
 
 namespace HMS.Domain.UseCases
 {

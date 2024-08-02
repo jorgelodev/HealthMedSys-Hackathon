@@ -13,7 +13,7 @@ namespace HMS.Infra.Services.Services
     {
         private readonly IMedicoGateway _medicoGateway;        
         private readonly IUsuarioGateway _usuarioGateway;        
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper;        
 
         public MedicoService(IMedicoGateway medicoGateway, IMapper mapper, IUsuarioGateway usuarioGateway)
         {
@@ -22,19 +22,6 @@ namespace HMS.Infra.Services.Services
             _usuarioGateway = usuarioGateway;
         }
 
-        public AlteraMedicoDto Alterar(AlteraMedicoDto alteraMedicoDto)
-        {
-            var medico = _medicoGateway.ObterPorId(alteraMedicoDto.Id) ??
-                throw new DomainValidationException("Médico não encontrado");
-
-            medico.Nome = alteraMedicoDto.Nome;
-
-            var alterarMedicoUseCase = new AlterarMedicoUseCase(medico, _medicoGateway);
-
-            alterarMedicoUseCase.Alterar();
-
-            return _mapper.Map<AlteraMedicoDto>(_medicoGateway.Alterar(medico));
-        }
 
         public MedicoDto Cadastrar(CadastraMedicoDto medicoDto)
         {
@@ -44,15 +31,15 @@ namespace HMS.Infra.Services.Services
             var cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase(usuario, _usuarioGateway);
 
             usuario = cadastrarUsuarioUseCase.Cadastrar();
-            
-            usuario = _usuarioGateway.Cadastrar(usuario);
-
-            medico.Usuario = usuario;            
-            medico.UsuarioId = usuario.Id;
 
             var cadastrarMedicoUseCase = new CadastrarMedicoUseCase(medico, _medicoGateway);            
 
             medico = cadastrarMedicoUseCase.Cadastrar();
+
+            usuario = _usuarioGateway.Cadastrar(usuario);
+
+            medico.Usuario = usuario;
+            medico.UsuarioId = usuario.Id;
 
             medico = _medicoGateway.Cadastrar(medico);
             
@@ -63,10 +50,7 @@ namespace HMS.Infra.Services.Services
             return medicoCadastradoDto;
         }
 
-        public MedicoDto Deletar(int id)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public ICollection<MedicosDisponiveisDto> Disponiveis()
         {

@@ -8,29 +8,32 @@ namespace HMS.Infra.Gateways.Gateways
     {
         private readonly IUsuarioRepository _usuarioRepository;
 
+
         public UsuarioGateway(IUsuarioRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
+            
         }
-
-        public Usuario Alterar(Usuario usuario)
-        {
-            return _usuarioRepository.Alterar(usuario);
-        }
-
         public Usuario Cadastrar(Usuario usuario)
         {
             return _usuarioRepository.Cadastrar(usuario);
-        }
-
-        public Usuario Deletar(int id)
-        {
-            return _usuarioRepository.Deletar(id);
         }
 
         public Usuario ObterPorId(int id)
         {
             return _usuarioRepository.ObterPorId(id);
         }
+
+        public bool EmailJaUtilizado(Usuario usuario)
+        {            
+
+            var usuarioComMesmoEmail = _usuarioRepository
+                .Buscar(u => u.Email.Equals(usuario.Email) && u.Id != usuario.Id)
+                .FirstOrDefault();
+
+            return usuarioComMesmoEmail != null;
+        }
+
+       
     }
 }

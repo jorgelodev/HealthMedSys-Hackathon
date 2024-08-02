@@ -1,4 +1,4 @@
-﻿namespace HMS.Domain.Specifications
+﻿namespace HMS.Domain.Interfaces.Specifications
 {
     public interface ISpecification<T>
     {

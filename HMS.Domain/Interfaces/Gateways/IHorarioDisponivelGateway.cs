@@ -8,6 +8,7 @@ namespace HMS.Domain.Interfaces.Gateways
         HorarioDisponivel Cadastrar(HorarioDisponivel horarioDisponivel);
         HorarioDisponivel Deletar(int id);
         HorarioDisponivel ObterPorId(int id);
+        bool HorarioEstaDesocupado(HorarioDisponivel horarioDisponivel);
 
     }
 }

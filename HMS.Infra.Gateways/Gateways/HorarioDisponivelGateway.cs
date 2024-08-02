@@ -32,5 +32,18 @@ namespace HMS.Infra.Gateways.Gateways
         {
             return _horarioDisponivelRepository.ObterPorId(id);
         }
+
+        public bool HorarioEstaDesocupado(HorarioDisponivel horarioDisponivel)
+        {
+            var horarioEstaDesocupado = !_horarioDisponivelRepository.Buscar(h =>
+                h.MedicoId == horarioDisponivel.MedicoId &&
+                ((horarioDisponivel.DataHoraInicio >= h.DataHoraInicio && horarioDisponivel.DataHoraInicio < h.DataHoraFim) ||
+                 (horarioDisponivel.DataHoraFim > h.DataHoraInicio && horarioDisponivel.DataHoraFim <= h.DataHoraFim) ||
+                 (horarioDisponivel.DataHoraInicio <= h.DataHoraInicio && horarioDisponivel.DataHoraFim >= h.DataHoraFim))).
+                 Any();
+
+            return horarioEstaDesocupado;
+
+        }
     }
 }
