@@ -17,7 +17,7 @@ jobs:
           dotnet-version: '7.0.x'
 
       - name: Restaurar dependências
-        run: dotnet restore HMS.sln
+        run: dotnet restore HealthMedSys.sln
 
       - name: Executar testes
         run: dotnet test HMS.Tests/HMS.Tests.csproj --configuration Release --no-build --verbosity normal
