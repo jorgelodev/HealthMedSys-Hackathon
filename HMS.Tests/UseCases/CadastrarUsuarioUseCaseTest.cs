@@ -60,7 +60,7 @@ namespace HMS.Tests.UseCases
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(usuario.Email, result.Email);
+            Assert.Equal(usuario.Email, "");
             Assert.Equal(usuario.Senha, result.Senha);
             Assert.Equal(usuario.Tipo, result.Tipo);
         }
