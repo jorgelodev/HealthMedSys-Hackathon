@@ -22,6 +22,7 @@ namespace HMS.Infra.IoC
             services.AddScoped<IHorarioDisponivelService, HorarioDisponivelService>();
             services.AddScoped<IConsultaService, ConsultaService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
 
 

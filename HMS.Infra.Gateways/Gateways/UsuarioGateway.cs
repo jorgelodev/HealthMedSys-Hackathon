@@ -34,6 +34,11 @@ namespace HMS.Infra.Gateways.Gateways
             return usuarioComMesmoEmail != null;
         }
 
-       
+        public Usuario BuscarPorEmail(string email)
+        {
+            return _usuarioRepository
+                .Buscar(u => email.Equals(u.Email))
+                .FirstOrDefault();
+        }
     }
 }

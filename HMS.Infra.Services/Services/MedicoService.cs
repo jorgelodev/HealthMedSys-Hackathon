@@ -28,6 +28,8 @@ namespace HMS.Infra.Services.Services
             var medico = _mapper.Map<Medico>(medicoDto);
             var usuario = _mapper.Map<Usuario>(medicoDto);
 
+            usuario.Tipo = Usuario.TipoUsuario.MEDICO;
+
             var cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase(usuario, _usuarioGateway);
 
             usuario = cadastrarUsuarioUseCase.Cadastrar();

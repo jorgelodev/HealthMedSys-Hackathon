@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using HMS.Infra.Services.DTOs.Medicos;
 using HMS.Infra.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.API.Controllers
 {
+    
     [ApiController]
     [Route("medico")]
     public class MedicoController : MainController
@@ -38,10 +40,10 @@ namespace HMS.API.Controllers
 
             return Ok(medicoCadastrado);
 
-        }        
+        }
 
         /// <summary>
-        /// Busca por médicos disponíveis.
+        /// Busca por médicos disponíveis. (Requer Autenticação e Autorização)
         /// </summary>    
         /// /// <remarks>
         /// 
@@ -50,6 +52,9 @@ namespace HMS.API.Controllers
         /// </remarks>
         /// <response code="200">Alteração Realizada com sucesso</response>
         /// <response code="400">Alteração não realizada, é retornado mensagem com o(s) motivo(s).</response>
+        /// <response code="401">Usuário não autenticado.</response>
+        /// <response code="403">Usuário não possui permissão de acesso.</response>
+        [Authorize(Roles = "Paciente")]
         [HttpGet("disponiveis")]
         public IActionResult Disponiveis()
         {

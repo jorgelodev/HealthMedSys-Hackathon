@@ -7,5 +7,6 @@ namespace HMS.Domain.Interfaces.Gateways
         Usuario Cadastrar(Usuario usuario);
         Usuario ObterPorId(int id);
         bool EmailJaUtilizado(Usuario usuario);
+        Usuario BuscarPorEmail(string email);
     }
 }

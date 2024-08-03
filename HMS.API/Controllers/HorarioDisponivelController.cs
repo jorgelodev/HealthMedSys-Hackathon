@@ -2,11 +2,13 @@
 using HMS.Infra.Services.DTOs.HorarioDisponiveis;
 using HMS.Infra.Services.DTOs.Medicos;
 using HMS.Infra.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.API.Controllers
 {
     [ApiController]
+    [Authorize(Roles = "Medico")]
     [Route("horario-disponivel")]
     public class HorarioDisponivelController : MainController
     {
@@ -20,7 +22,7 @@ namespace HMS.API.Controllers
         }
 
         /// <summary>
-        /// Cadastro de Horários Disponíveis.
+        /// Cadastro de Horários Disponíveis. (Requer Autenticação e Autorização)
         /// </summary>
         /// <param name="horarioDisponivelViewModel">ViewModel para cadastro de Horário Disponível.</param>        
         /// <remarks>
@@ -30,6 +32,8 @@ namespace HMS.API.Controllers
         /// </remarks>
         /// <response code="200">Cadastro Realizado com sucesso</response>
         /// <response code="400">Cadastro não realizado, é retornado mensagem com o(s) motivo(s).</response>
+        /// <response code="401">Usuário não autenticado.</response>
+        /// <response code="403">Usuário não possui permissão de acesso.</response>        
         [HttpPost]
         public IActionResult Cadastrar(CadastraHorarioDisponivelViewModel horarioDisponivelViewModel)
         {
@@ -42,7 +46,7 @@ namespace HMS.API.Controllers
         }
 
         /// <summary>
-        /// Alteração de horários disponíveis.
+        /// Alteração de horários disponíveis. (Requer Autenticação e Autorização)
         /// </summary>
         /// <param name="alteraHorarioDisponivelViewModel">ViewModel para alterar horário disponível.</param>        
         /// <remarks>
@@ -52,6 +56,8 @@ namespace HMS.API.Controllers
         /// </remarks>
         /// <response code="200">Alteração Realizada com sucesso</response>
         /// <response code="400">Alteração não realizada, é retornado mensagem com o(s) motivo(s).</response>
+        /// <response code="401">Usuário não autenticado.</response>
+        /// <response code="403">Usuário não possui permissão de acesso.</response>        
         [HttpPut]
         public IActionResult Alterar(AlteraHorarioDisponivelViewModel alteraHorarioDisponivelViewModel)
         {

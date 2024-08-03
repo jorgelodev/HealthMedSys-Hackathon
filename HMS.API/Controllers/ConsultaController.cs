@@ -2,6 +2,7 @@
 using HMS.Infra.Services.DTOs.Consultas;
 using HMS.Infra.Services.DTOs.HorarioDisponiveis;
 using HMS.Infra.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.API.Controllers
@@ -20,7 +21,7 @@ namespace HMS.API.Controllers
         }
 
         /// <summary>
-        /// Agendamento de consulta.
+        /// Agendamento de consulta (Requer Autenticação e Autorização).
         /// </summary>
         /// <param name="agendaConsultaViewModel">ViewModel para agendamento de consultas.</param>        
         /// <remarks>
@@ -30,6 +31,9 @@ namespace HMS.API.Controllers
         /// </remarks>
         /// <response code="200">Cadastro Realizado com sucesso</response>
         /// <response code="400">Cadastro não realizado, é retornado mensagem com o(s) motivo(s).</response>
+        /// <response code="401">Usuário não autenticado.</response>
+        /// <response code="403">Usuário não possui permissão de acesso.</response>
+        [Authorize(Roles = "Paciente")]
         [HttpPost]
         public IActionResult Agendar(AgendaConsultaViewModel agendaConsultaViewModel)
         {

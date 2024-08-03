@@ -4,6 +4,8 @@ using HMS.Infra.Services.DTOs.Consultas;
 using HMS.Infra.Services.DTOs.HorarioDisponiveis;
 using HMS.Infra.Services.DTOs.Medicos;
 using HMS.Infra.Services.DTOs.Pacientes;
+using HMS.Infra.Services.DTOs.Usuarios;
+using HMS.Infra.Services.ViewModels.Usuarios;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HMS.Infra.Mapper
@@ -31,6 +33,10 @@ namespace HMS.Infra.Mapper
 
             CreateMap<AgendaConsultaViewModel, AgendaConsultaDto>().ReverseMap();
 
+            // Usuario
+
+            CreateMap<UsuarioViewModel, UsuarioLogonDto>().ReverseMap();
+
 
             // Entities x DTOs 
 
@@ -54,6 +60,10 @@ namespace HMS.Infra.Mapper
             // Consulta //
             CreateMap<Consulta, ConsultaDto>().ReverseMap();
             CreateMap<Consulta, AgendaConsultaDto>().ReverseMap();
+
+            // Usuario
+            CreateMap<Usuario, UsuarioLogonDto>().ReverseMap();
+            CreateMap<Usuario, UsuarioAutenticadoDto>().ReverseMap();
 
 
         }

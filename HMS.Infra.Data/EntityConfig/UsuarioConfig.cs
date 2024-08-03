@@ -11,6 +11,20 @@ namespace HMS.Infra.Data.EntityConfig
             builder
             .ToTable("Usuarios")
             .HasKey(u => u.Id);
+
+            builder.Property(u => u.Email)
+                .IsRequired()
+            .HasMaxLength(100);
+
+            builder.Property(u => u.Senha)
+                .IsRequired()
+            .HasMaxLength(100);
+
+            builder.Property(u => u.Tipo)
+                .HasConversion<int>() 
+                .IsRequired();
+        
+            
         }
     }
 }
