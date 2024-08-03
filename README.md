@@ -1,5 +1,6 @@
 # HealthMedSys
 
+Na Rais do projeto tem um documento com o diagrama do banco.
 
 Grupo 33 - 2NETT
 
