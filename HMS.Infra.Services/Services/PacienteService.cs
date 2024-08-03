@@ -3,6 +3,7 @@ using HMS.Domain.Entities;
 using HMS.Domain.Excepctions;
 using HMS.Domain.Interfaces.Gateways;
 using HMS.Domain.UseCases.Pacientes;
+using HMS.Domain.UseCases.Pessoas;
 using HMS.Domain.UseCases.Usuarios;
 using HMS.Infra.Services.DTOs.Pacientes;
 using HMS.Infra.Services.Interfaces;
@@ -36,6 +37,10 @@ namespace HMS.Infra.Services.Services
             var cadastrarPacienteUseCase = new CadastrarPacienteUseCase(paciente, _pacienteGateway);
 
             paciente = cadastrarPacienteUseCase.Cadastrar();
+
+            var cadastrarpessoaUseCase = new CadastrarPessoaUseCase(paciente);
+
+            cadastrarpessoaUseCase.Cadastrar();
 
             usuario = _usuarioGateway.Cadastrar(usuario);
 

@@ -54,14 +54,6 @@ namespace HMS.Infra.Services.Services
             return _mapper.Map<HorarioDisponivelDto>(horarioDisponivel);
         }
 
-        public HorarioDisponivelDto Deletar(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public HorarioDisponivelDto ObterPorId(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

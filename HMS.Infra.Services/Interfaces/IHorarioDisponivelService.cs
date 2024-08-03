@@ -6,7 +6,6 @@ namespace HMS.Infra.Services.Interfaces
     {
         HorarioDisponivelDto Cadastrar(CadastraHorarioDisponivelDto horarioDisponiveloDto);
         HorarioDisponivelDto Alterar(AlteraHorarioDisponivelDto alteraHorarioDisponivelDto);
-        HorarioDisponivelDto ObterPorId(int id);
-        HorarioDisponivelDto Deletar(int id);        
+           
     }
 }
