@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HMS.Domain.Entities;
 using HMS.Domain.Excepctions;
 using HMS.Infra.Services.DTOs.Usuarios;
 using HMS.Infra.Services.Interfaces;
@@ -8,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace HMS.API.Controllers
 {
@@ -51,7 +53,14 @@ namespace HMS.API.Controllers
                 {
                     new Claim(ClaimTypes.Email, model.Email)
                 };
-            claims.AddRange(usuarioAutenticado.Claims);
+
+            foreach (var item in usuarioAutenticado.Claims)
+            {
+                claims.Add(new Claim(item.Type, item.Value));
+            }
+            
+
+            claims.Add(new Claim("UsuarioAutenticado", usuarioAutenticado.Id.ToString()));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

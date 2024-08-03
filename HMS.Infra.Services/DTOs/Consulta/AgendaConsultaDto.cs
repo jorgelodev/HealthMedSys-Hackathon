@@ -1,8 +1,11 @@
-﻿namespace HMS.Infra.Services.DTOs.HorarioDisponiveis
+﻿using HMS.Infra.Services.DTOs.Usuarios;
+
+namespace HMS.Infra.Services.DTOs.HorarioDisponiveis
 {
     public class AgendaConsultaDto
-    {     
-        public int PacienteId { get; set; }        
+    {
+        public UsuarioAutenticadoDto UsuarioAutenticadoDto { get; set; }
+        public int IdUsuarioSolicitante { get; set; }        
         public int HorarioDisponivelId { get; set; }        
     }
 }

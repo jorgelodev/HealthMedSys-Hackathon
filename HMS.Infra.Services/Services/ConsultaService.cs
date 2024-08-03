@@ -11,22 +11,30 @@ namespace HMS.Infra.Services.Services
     public class ConsultaService : IConsultaService
     {         
         private readonly IConsultaGateway _consultaGateway;
+        private readonly IPacienteGateway _pacienteGateway;
+        private readonly IUsuarioGateway _usuarioGateway;
         private readonly IHorarioDisponivelGateway _horarioDisponivelGateway;
 
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
 
-        public ConsultaService(IMapper mapper, IConsultaGateway consultaGateway, IEmailService emailService, IHorarioDisponivelGateway horarioDisponivelGateway)
+        public ConsultaService(IMapper mapper, IConsultaGateway consultaGateway, IEmailService emailService, IHorarioDisponivelGateway horarioDisponivelGateway, IPacienteGateway pacienteGateway, IUsuarioGateway usuarioGateway)
         {
             _mapper = mapper;
             _consultaGateway = consultaGateway;
             _emailService = emailService;
             _horarioDisponivelGateway = horarioDisponivelGateway;
+            _pacienteGateway = pacienteGateway;
+            _usuarioGateway = usuarioGateway;
         }
 
         public ConsultaDto Agendar(AgendaConsultaDto agendaConsultaDto)
         {
+            var usuario = _usuarioGateway.ObterPorId(agendaConsultaDto.UsuarioAutenticadoDto.Id);
+            var paciente = _pacienteGateway.ObterPorIdUsuario(usuario.Id);
+
             var consulta = _mapper.Map<Consulta>(agendaConsultaDto);
+            consulta.PacienteId = paciente.Id;
 
             var horarioDisponivel = _horarioDisponivelGateway.ObterPorId(consulta.HorarioDisponivelId) ??
                 throw new DomainValidationException("Horário não encontrado");

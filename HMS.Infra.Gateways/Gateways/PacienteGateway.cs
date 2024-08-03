@@ -21,5 +21,10 @@ namespace HMS.Infra.Gateways.Gateways
         {
             return _pacienteRepository.ObterPorId(id);
         }
+
+        public Paciente ObterPorIdUsuario(int usuarioId)
+        {
+            return _pacienteRepository.Buscar(p => p.UsuarioId == usuarioId).FirstOrDefault();
+        }
     }
 }

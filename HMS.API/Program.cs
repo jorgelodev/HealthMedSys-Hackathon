@@ -11,6 +11,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = builder.Configuration["PORT"];
+builder.WebHost.UseUrls($"http://*:{port}");
+
 // Add services to the container.
 
 NativeInjectorBootStrapper.RegisterServices(builder.Services);

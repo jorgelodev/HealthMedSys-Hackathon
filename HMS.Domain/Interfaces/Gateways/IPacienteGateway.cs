@@ -6,6 +6,6 @@ namespace HMS.Domain.Interfaces.Gateways
     {
         Paciente Cadastrar(Paciente paciente);
         Paciente ObterPorId(int id);
-
+        Paciente ObterPorIdUsuario(int usuarioId);
     }
 }

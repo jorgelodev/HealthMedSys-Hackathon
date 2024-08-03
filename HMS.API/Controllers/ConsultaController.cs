@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using HMS.Infra.Services.DTOs.Consultas;
 using HMS.Infra.Services.DTOs.HorarioDisponiveis;
+using HMS.Infra.Services.DTOs.Usuarios;
 using HMS.Infra.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text.Json;
 
 namespace HMS.API.Controllers
 {
@@ -26,7 +29,7 @@ namespace HMS.API.Controllers
         /// <param name="agendaConsultaViewModel">ViewModel para agendamento de consultas.</param>        
         /// <remarks>
         /// 
-        /// O paciente poderá agendar sua consulta informando os campos: PacienteId, HorarioDisponivelId.
+        /// O paciente poderá agendar sua consulta informando o campo HorarioDisponivelId.
         /// 
         /// </remarks>
         /// <response code="200">Cadastro Realizado com sucesso</response>
@@ -39,12 +42,44 @@ namespace HMS.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var consultaAgendada = _consultaService.Agendar(_mapper.Map<AgendaConsultaDto>(agendaConsultaViewModel));
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+                      
 
-            return Ok(consultaAgendada);
+            if (claimsIdentity != null)
+            {
+                var usuarioAutenticadoClaim = claimsIdentity.FindFirst("UsuarioAutenticado");
+
+                if (usuarioAutenticadoClaim != null)
+                {
+                    var claims = claimsIdentity.Claims;
+                    var user = claims.Where(c => c.Type.Equals("UsuarioAutenticado")).FirstOrDefault();
+
+                    var usuarioAutenticado = new UsuarioAutenticadoDto() { Id = int.Parse(user.Value) };
+
+                    //UsuarioAutenticadoDto usuarioAutenticado = JsonSerializer.Deserialize<UsuarioAutenticadoDto>(user.Value);
+
+                    var agendaConsultaDto = new AgendaConsultaDto()
+                    {
+                        UsuarioAutenticadoDto = usuarioAutenticado,                        
+                        HorarioDisponivelId = agendaConsultaViewModel.HorarioDisponivelId
+                    };
+
+
+                    var consultaAgendada = _consultaService.Agendar(agendaConsultaDto);
+
+                    return Ok(consultaAgendada);
+
+                }
+            }                    
+
+            return Unauthorized();
 
         }
 
        
     }
+
+   
+
+   
 }
