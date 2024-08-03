@@ -20,7 +20,7 @@ jobs:
         run: dotnet restore HealthMedSys.sln
 
       - name: Executar testes
-        run: dotnet test HMS.Tests/HMS.Tests.csproj --configuration Release --no-build --verbosity normal --no-restore
+        run: dotnet test HMS.Tests/HMS.Tests.csproj --configuration Release --no-build --verbosity detailed
 
   build:
     name: Job para gerar o build, gerar imagem e publicar imagem no Docker Hub.
