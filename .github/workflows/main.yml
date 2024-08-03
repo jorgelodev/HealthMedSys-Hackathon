@@ -14,18 +14,13 @@ jobs:
       - name: Configurar o .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
-      
-      - name: Limpar bin e obj
-        run: |
-          rm -rf HMS.Tests/bin
-          rm -rf HMS.Tests/obj
+          dotnet-version: '7.0'      
 
       - name: Restaurar dependências
         run: dotnet restore HealthMedSys.sln
 
       - name: Executar testes
-        run: dotnet test HMS.Tests/HMS.Tests.csproj --configuration Release --no-build --verbosity detailed
+        run: dotnet test --no-restore --verbosity normal
 
   build:
     name: Job para gerar o build, gerar imagem e publicar imagem no Docker Hub.
